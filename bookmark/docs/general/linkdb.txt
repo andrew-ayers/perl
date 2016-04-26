@@ -1,0 +1,251 @@
+		      --- Category Table ---
+		    
+The category table serves to define and lay out each category
+of the bookmark collection. 
+	      
+Rules:
+
+	1. Each category entry row in the category table rep-
+	   resents one category.
+	   
+Layout:
+
+	id]name]type]auth
+		.
+		.
+		.
+	id]name]type]auth
+
+Definitions:
+
+	      id = unique sequential category ID number (C###)
+	    name = name of the category
+	    type = r)oot or b)ranch (see category tree table below)
+	    auth = auth level user must be to view category
+	    
+Example:
+
+	C001]Computer]R]~
+	C002]Software]B]~
+	C003]Hardware]B]~
+	
+Screen Layout:
+
+		 CATEGORY UPDATE
+
+	Number Name	   Type    Auth Level
+	------ ----------- ------- ----------
+  [ ]   C001   Computer    ROOT        ?
+  [ ]   C002   Software    BRANCH      ?
+  [ ]   C003   Hardware    BRANCH      ?
+  [*]   C004   [         ] [    V] [       V]
+  
+		[UPDATE] [REMOVE]
+			
+  Clicking the UPDATE button when entering in a new category
+  will cause the system to validate data entered, and if
+  valid, will add the data to the list and redisplay the list.
+  
+  If the UPDATE button is clicked when a current category is
+  selected, the following display is shown to allow the user
+  to modify a current category's information:
+  
+  	Number: C001
+	  Name: [Computer        ]
+	  Type: [ROOT   V]
+    Auth Level: [          V]
+    
+			 [SAVE] [CANCEL]
+			 
+  Clicking save will save the changes, while clicking cancel
+  will return the user to the update screen without saving any
+  changes.
+  
+
+		    --- Category Tree Table ---
+
+The purpose of this table is to lay out and establish a category
+"tree", which defines the way the individual categories relate to
+each other, as well as which links (described below) are part of
+which categories in the tree.
+
+Rules:
+
+	1. Each entry in the table describes one path to one link.
+	
+	2. Multiple links on a path require multiple entries.
+	
+	3. Categories of type "root" may be listed in tree table as
+	   a branch. However, categories of type "branch" may NEVER
+	   be listed in tree table as a root.
+
+Layout:
+
+	root]branch]branch]...]link
+		.
+		.
+		.
+	root]branch]branch]...]link
+
+Definitions:
+
+	root = root level category ID
+      branch = branch level category ID
+        link = link ID
+		
+Example:
+
+	Categories -
+	
+		C001=Computer
+		C002=Software
+		C003=Hardware
+		
+	     Links -
+
+		L001=Encryption Research
+		L002=Linux Place
+		L003=Computer Cases
+		
+	      Real -
+	      
+	        Computer
+			Software
+				Encryption Research
+			        Linux Place
+			Hardware
+				Encryption Research
+				Computer Cases
+
+	     Table -
+	     
+		C001]C002]L001
+		C001]C002]L002
+		C001]C003]L001
+		C001]C003]L003
+
+Screen Layout:
+
+	Screen layout for the update of this table is as follows:
+
+	1. Main update screen shows all root categories as defined
+	   in category table. Beside each root category entry will
+	   be a button reading "DEFINE". Clicking on the button
+	   will allow the user to update/add branches for that
+	   category:
+	   
+		Computers [DEFINE]
+		Science   [DEFINE]
+		Society   [DEFINE]
+		.
+		.
+		.
+		etc.
+		
+	2. The branch update screen will allow the user to add
+	   and remove branch category(s) to the root category, as
+	   well as define links for a branch:
+	   
+	   	Computers:
+			Software [DEFINE] [REMOVE]
+			Hardware [DEFINE] [REMOVE]
+			Link [UPDATE] [REMOVE] [COPY]
+			
+			[Category Dropdown] [ADD BRANCH]
+
+			[ADD LINK] [PASTE LINK]
+
+	3. Clicking on the DEFINE button allows the user to
+	   continue adding or updating further branches under
+	   the current branch or root (see below). Clicking
+	   the REMOVE button will remove the branch (and sub-
+	   branches) from the current branch or root.
+	   
+	   Links may be updated by clicking the UPDATE button
+	   next to the link. The link information will display
+	   in the screen defined in the link table section
+	   below. A link may also be removed from the current
+	   branch or root by clicking the REMOVE button next
+	   to the link. Links may also be "copied" to allow
+	   them to be pasted under other paths in the tree
+	   (the PASTE LINK button will only be available if
+	   the user has clicked on the COPY button previous-
+	   ly). Clicking the ADD LINK button will allow the
+	   user to add a link using the screen defined in the
+	   link table section below.
+	   
+	   Branches may be added to the current branch or
+	   root by selecting the category from the dropdown
+	   and clicking the ADD BRANCH button.
+	   
+	   An example of a multiple branch path (that is, a
+	   path which starts from a root category, branches,
+	   then sub-branches) is as follows:
+	   
+	   	Computers:
+			Software:
+				Games [DEFINE] [REMOVE]
+				Apps [DEFINE] [REMOVE]
+				Link [UPDATE] [REMOVE] [COPY]
+				
+				[Category Dropdown] [ADD BRANCH]
+				
+				[ADD LINK] [PASTE LINK]
+				
+	   As can be seen, this is simply an extension of the 
+	   previous display.
+	   
+	4. Roots, branches and links will be displayed as color
+	   coded nodes in the list. In addition, links may be
+	   "browsed" from the list by clicking on them at any
+	   time.
+
+
+			--- Link Table ---
+
+The link table serves to define and lay out the individual links
+within the bookmark collection, as referenced in the category
+tree table (see above).
+
+Rules:
+
+	1. Each link entry row in the link table represents
+	   one link.
+
+Layout:
+
+	id]link]name]description]auth
+		.
+		.
+		.
+	id]link]name]description]auth
+
+Definitions:
+
+	      id = unique sequential link ID number (L######)
+	    link = http reference
+	    name = name to be displayed for the <a href>
+     description = description of the link
+	    auth = auth level user must be to view link
+
+Example:
+
+	L001]www.encryption.org]Encryption Research]All things encryption]~
+	L002]www.linux.org]Linux Place]All about Linux]~
+	L003]www.computercase.com]Computer Cases]Low cost cases for PCs]~
+
+Screen Layout:
+
+			   LINK UPDATE
+
+	Number: L001
+	  Link: [www.encryption.org         ]
+	  Name: [Encryption Research        ]
+	  Desc: [All things encryption                       ]
+    Auth Level: [          V]
+
+			 [SAVE] [CANCEL]
+			 
+  Clicking save will save the changes, while clicking cancel
+  will return the user to the category tree list without saving
+  any changes.

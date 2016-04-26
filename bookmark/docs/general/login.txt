@@ -1,0 +1,24 @@
+Login and Session Security Checking:
+
+1. Check session ID:
+
+	a. If not null, matches DB, remote IP matches DB: Goto Main.
+	b. If not null, doesn't match DB or remote IP doesn't match DB:
+	   Disable the account, show message, and log out.
+	c. If null: Goto (Login) step 2a.
+	
+2. Login:
+
+	a. Display and obtain login/password.
+	b. If login and password match DB: Set IP on DB to remote IP and 
+	   assign session number. Store session number in DB. Goto Main.
+	b. If login and password do not match: Increment fail count on DB.
+	   Goto (Login) step 2a.
+	c. If fail count > 3: Disable the account, show message, and log out.
+
+3. Main:
+
+The session ID is appended to each link and request. When the link is clicked
+to execute another Perl request, the session ID is sent as part of the request.
+Each Perl subprogram checks the link against the DB (per steps 1a-1c above),
+in order to maintain security integrity.

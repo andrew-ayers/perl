@@ -1,0 +1,6 @@
+<form method="post" action="./login.pl">
+<input type="hidden" name="op" value="verify">
+Login: <input type = "text" name = "user"><br>
+Password: <input type = "password" name = "pass">
+<input type = "submit" value = "Login">
+</form>

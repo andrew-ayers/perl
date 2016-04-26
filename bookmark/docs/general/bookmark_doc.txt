@@ -1,0 +1,51 @@
+Note: Session cookie must be checked prior to each main routine call
+
+Login Procedure:
+----------------
+
+login.pl?op=verify&user=xxx&pass=yyy (default script):
+
+	1. If login and password is not null, goto 5.
+	2. Check session cookie (cookie.pl?op=check).
+	3. If error, show login form (login.pl?op=show), exit.
+	4. Call main.pl?op=show, exit.
+	5. Compare user and pass against all users.
+	6  If not found then show error message, exit.
+	
+		Error message should say "Invalid Login..."
+		
+	7. Set session cookie (cookie.pl?op=set&user=xxx&pass=yyy).
+	8. Call main.pl?op=show, exit.
+
+login.pl?op=show
+
+	1. Show name/password entry form, exit.
+	   (submit calls login.pl?op=verify&user=xxx&pass=yyy)
+
+cookie.pl?op=check:
+
+	1. Check for session cookie on browser.
+	2. If not null, goto 4.
+	3. Return error, exit.
+	4. Compare session cookie against all users (for today's date).
+	
+		Loop through users, build temp session cookie var,
+		compare session cookie against temp var.
+		
+	5. If match, exit.
+	6. Return error, exit.
+
+cookie.pl?op=set&user=xxx&pass=yyy:
+	
+	1. Generate session cookie using user/pass and today's date.
+	2. Set session cookie on browser, exit.
+
+Main Screen Display
+-------------------
+	
+main.pl?op=show:
+
+	1. Check session cookie (cookie.pl?op=check).
+	2. If session cookie is null, show login form (login.pl?op=show), exit.
+	3. Use session cookie to find user info, return auth level.
+	4. Use user auth level to show main screen w/options.
